@@ -1,6 +1,6 @@
 ---
 title: "Gov 50 Final Project"
-author: "Your Name Here"
+author: "Carly Lehman"
 description: "My final project"
 output:
   distill::distill_article:
@@ -10,5 +10,4 @@ output:
 
 
 ## Project thoughts
-
-I am interested in exploring data related to...
+ I am interested in exploring data related to the intersection of racial and economic segregation in American schools and political polarization. I hope to understand whether more integrated school's and school districts lower political polarization, especially over race-related issues. 

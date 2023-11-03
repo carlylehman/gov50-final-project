@@ -18,13 +18,16 @@ output:
 ```{r}
 library(dplyr)
 library(tidyverse)
-school_data <- read_csv("data/Large_District_School_Segregation_1991_2020.csv")
+school_data <- read_csv("~/gov50 final project/School data.RData")
 ```
 ```{r}
 visualize_ec <- school_data |> 
   group_by(state) |>
-  summarize(mean_interaction = mean(normalized exposure - FRL - nFRL)) 
+  summarize(mean_interaction = mean(normalized exposure - FRL - nFRL)) |>
+  ggplot(mapping = aes(state, year)) + geom_point()
+  
+   visualize_ec
 ```
- 
+ summarize(mean_interaction = mean(normalized exposure - FRL - nFRL))
 
 

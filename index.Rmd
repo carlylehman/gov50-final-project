@@ -13,3 +13,18 @@ output:
  I am interested in exploring data related to the intersection of racial and economic segregation in American schools and political polarization. I hope to understand whether more integrated school's and school districts lower political polarization, especially over race-related issues. 
  
  Does racial or economic school segregation have a large effect on political polarization? In this study, I plan to examine whether racial or economic segregation in America’s public school affects political polarization and how it differs across the two types of segregation. I hypothesize that racial segregation in public schools increases the political polarization in public schools while economic segregation decreases the political polarization in public schools.  When schools are both racially and economically segregated, I think that political polarization will also increase. I further hypothesize that there will be a difference between white-black racial segregation, white-hisapnic racial segregation, and integrated schools. My sample comprises 12,000 school districts from the years of 1995 to 2011. My unit of analysis is the racial segregation of schools. The dependent variable of interest is the political polarization of US cities  In the data set containing the information on public schools, a 0 represents the school as entirely integrated, matching the racial composition of the area census, whereas a 1 represents an entirely segregated school, not reflecting the racial composition of the area census. My outcome variable, the political polarization, is measured using data from a  2018 YouGov survey representative of young adult residents' political polarization in cities across the country. If I observe higher political polarization were schools racially segregated and lower polarization where schools are economically segregated, than my hypothesis would be evidenced. If I observe the opposite or equal polarization between racially and economically segregated schools, or with integrated schools, then my hypothesis will be proven wrong. When I run my regression of the political polarization of the racially segregated schools, a positive, significant coefficient would indicate support for my hypothesis. 
+ 
+ 
+```{r}
+library(dplyr)
+library(tidyverse)
+school_data <- read_csv("data/Large_District_School_Segregation_1991_2020.csv")
+```
+```{r}
+visualize_ec <- school_data |> 
+  group_by(state) |>
+  summarize(mean_interaction = mean(normalized exposure - FRL - nFRL)) 
+```
+ 
+
+

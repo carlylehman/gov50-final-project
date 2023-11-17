@@ -10,24 +10,60 @@ output:
 
 
 ## Project thoughts
- I am interested in exploring data related to the intersection of racial and economic segregation in American schools and political polarization. I hope to understand whether more integrated school's and school districts lower political polarization, especially over race-related issues. 
- 
- Does racial or economic school segregation have a large effect on political polarization? In this study, I plan to examine whether racial or economic segregation in America’s public school affects political polarization and how it differs across the two types of segregation. I hypothesize that racial segregation in public schools increases the political polarization in public schools while economic segregation decreases the political polarization in public schools.  When schools are both racially and economically segregated, I think that political polarization will also increase. I further hypothesize that there will be a difference between white-black racial segregation, white-hisapnic racial segregation, and integrated schools. My sample comprises 12,000 school districts from the years of 1995 to 2011. My unit of analysis is the racial segregation of schools. The dependent variable of interest is the political polarization of US cities  In the data set containing the information on public schools, a 0 represents the school as entirely integrated, matching the racial composition of the area census, whereas a 1 represents an entirely segregated school, not reflecting the racial composition of the area census. My outcome variable, the political polarization, is measured using data from a  2018 YouGov survey representative of young adult residents' political polarization in cities across the country. If I observe higher political polarization were schools racially segregated and lower polarization where schools are economically segregated, than my hypothesis would be evidenced. If I observe the opposite or equal polarization between racially and economically segregated schools, or with integrated schools, then my hypothesis will be proven wrong. When I run my regression of the political polarization of the racially segregated schools, a positive, significant coefficient would indicate support for my hypothesis. 
+ I am interested in exploring data related to the effect of exposure to diverse political views has on individuals political polarization. Often times, an assumption is made that exposing individuals to diverse public opinions will decrease polarization. Instead of relying on this as a common assumption, I want to test whether individuals exposed to opposing political opinions will become more or less polarized. I specifically want to understand whether the effect of cross-party interaction effects social or economic political polarization more. To do this, I am using a dataset from Bail et. al. 2018 which measured individuals political polarization before and after interacting with twitter bots of opposing political viewpoints. Bail et. al asks a variety of survey questions to measure political polarization, with about half dealing with economic issues and the other half dealing with social issues. An example of an economic measure is “Government regulation of business is necessary to protect the public interest” and an example of an economic measure is “Homosexuality should be accepted by society.” The data set utilized 901 democrats and 751 republicans in its survey, collecting information about gender, geographic region, education, and twitter use as well. The many control variables collected will allow for a better understanding of the effect of the independent variable, instead of it being corrupted by outside variables. One downside to this dataset is that it is testing changes in views and polarization through twitter, a social media platform that is historically polarized. The effects of exposure to opposing views may differ if that exposure occured in person, and not over social media. 
  
  
 ```{r}
 library(dplyr)
 library(tidyverse)
-school_data <- read_csv("~/gov50 final project/School data.RData")
+
+twitter_data <- read_csv("gov-50-final-project-twitter-data.csv")
+```
+
+
+```{r}
+
+twitter_data <- twitter_data  |> 
+  na.omit(twiiter_data)
+
+visualize_ec <- twitter_data  |> 
+  mutate(gender = if_else(gender == 1, "female", "male")) |>
+  group_by(gender) |>
+  summarize(mean_homogeneity = mean(ideo_homogeneity_offline)) |>
+  ggplot(mapping = aes(x = gender, y = mean_homogeneity)) + geom_col()
+   visualize_ec
+   
+
+    
 ```
 ```{r}
-visualize_ec <- school_data |> 
-  group_by(state) |>
-  summarize(mean_interaction = mean(normalized exposure - FRL - nFRL)) |>
-  ggplot(mapping = aes(state, year)) + geom_point()
-  
-   visualize_ec
+install.packages("infer")
+library(infer)
+set.seed(02138)
+
+twitter_data <- twitter_data |>
+  mutate(treatment = if_else(treat == 1, "Exposure","Control")) 
+
+ate_twitter <- twitter_data |>
+  rep_slice_sample(prop = 1, replace = TRUE, reps = 1000) |>
+   group_by(replicate, treatment) |>
+  na.omit() |> 
+  summarize(mean_ideology = mean(homosexuality_should_be_accepted_wave_5)) |>
+   pivot_wider(
+    names_from = c(treatment), 
+    values_from = mean_ideology) |>
+  mutate(ATE = `Exposure` - `Control`) |>
+  select(ATE)
+
+ate_twitter_ci_95 <- ate_twitter |>
+  select(replicate, ATE) |>
+  na.omit() |>
+  get_confidence_interval(level = 0.95) 
+
+ ate_twitter  |>
+  ggplot(aes(x = ATE)) + 
+  geom_histogram(aes(y = after_stat(density)), binwidth = 0.05) +
+  geom_vline(xintercept = unlist(ate_twitter_ci_95))
 ```
- summarize(mean_interaction = mean(normalized exposure - FRL - nFRL))
 
 

@@ -37,7 +37,6 @@ visualize_ec <- twitter_data  |>
     
 ```
 ```{r}
-install.packages("infer")
 library(infer)
 set.seed(02138)
 

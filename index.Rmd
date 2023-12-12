@@ -16,6 +16,7 @@ output:
 ```{r}
 library(dplyr)
 library(tidyverse)
+library(infer)
 
 twitter_data <- read_csv("gov-50-final-project-twitter-data.csv")
 ```
@@ -54,6 +55,7 @@ ate_twitter <- twitter_data |>
   mutate(ATE = `Exposure` - `Control`) |>
   select(ATE)
 
+
 ate_twitter_ci_95 <- ate_twitter |>
   select(replicate, ATE) |>
   na.omit() |>
@@ -63,6 +65,36 @@ ate_twitter_ci_95 <- ate_twitter |>
   ggplot(aes(x = ATE)) + 
   geom_histogram(aes(y = after_stat(density)), binwidth = 0.05) +
   geom_vline(xintercept = unlist(ate_twitter_ci_95))
+ 
+ 
 ```
 
+```{r}
+install.packages("modelsummary")
+
+fit_ate <- lm(homosexuality_should_be_accepted_wave_5 ~ treat + birth_year + family_income + education + gender + homosexuality_should_be_accepted_wave_1 + northeast + north_central + south + west, data = twitter_data)
+  
+
+modelsummary::modelsummary(fit_ate,
+                           statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
+```
+```{r}
+ate  <- twitter_data |>
+  specify(homosexuality_should_be_accepted_wave_5 ~ treatment) |>
+calculate(stat = "diff in means", order = c("Exposure","Control"))
+
+ate_null_dist <- twitter_data |>
+   specify(homosexuality_should_be_accepted_wave_5 ~ treatment) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+    calculate(stat = "diff in means", order = c("Exposure","Control")) 
+
+ate_p <- ate_null_dist |>
+  get_p_value(obs_stat = ate, direction = "both")
+
+ate_null_dist |> 
+  visualize() + shade_p_value(obs_stat = ate, direction = "both")
+```
 

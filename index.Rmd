@@ -38,6 +38,7 @@ visualize_ec <- twitter_data  |>
 
     
 ```
+geom_vline(xintercept = unlist(ate_twitter_ci_95)) +
 ```{r}
 library(infer)
 set.seed(02138)
@@ -64,8 +65,7 @@ ate_twitter_ci_95 <- ate_twitter |>
 
  ate_twitter  |>
   ggplot(aes(x = ATE)) + 
-  geom_histogram(aes(y = after_stat(density)), binwidth = 0.05) +
-  geom_vline(xintercept = unlist(ate_twitter_ci_95))
+  geom_histogram(aes(y = after_stat(density)), binwidth = 0.05) + shade_confidence_interval(endpoints = ate_twitter_ci_95, fill = )
  
  
 ```
@@ -89,7 +89,7 @@ summary(fit_ate)
 
 stargazer(fit_ate, data = "text")
 ```
-Visualization #2 Data section: This regression shows the effect of the treatment coefficient on the dependent variable, individuals views torwards the acceptance of homosexuality in the study, along with the signifiance of other demographic characteristics. The regression includes the ATE, the standard deviation, and the p value for both the treatment effect, but also all of the control variables. From this regression, the intercept, which is the expected change from the treatment effect when all indepenent variables are 0, is -8.51. The expected standard deviation is 28.4 and the expect p value is 0.768. For the treatment coefficient, the regression tells us that the 
+Visualization #2 Data section: This regression shows the effect of the treatment coefficient on the dependent variable, individuals views torwards the acceptance of homosexuality in the study, along with the signifiance of other demographic characteristics. The regression includes the ATE, the standard deviation, and the p value for both the treatment effect, but also all of the control variables. From this regression, the intercept, which is the expected change from the treatment effect when all indepenent variables are 0, is -8.51. The expected standard deviation is 28.4 and the expect p value is 0.768. For this specific example, the intercept is not very helpful because in reality, all of the independent variables, such as age, would never actually be set to 0. For the treatment coefficient, the regression tells us that the estimated change in the dependent variable for a one unit change in the treatment variable, which in this case means the change for being in the exposure, or treatment group, versus the control group. 
 Visualization #2 results section:
 ```{r}
 ate  <- twitter_data |>

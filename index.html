@@ -1530,7 +1530,6 @@ My hypothesis is that exposure to diverse political views on social media will h
 <span><span class='va'>twitter_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"gov-50-final-project-twitter-data.csv"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-Bootstrapping of Treatment Variable
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span></span>
@@ -1570,7 +1569,6 @@ Bootstrapping of Treatment Variable
 <p>Visualization #2 Data section: The results from this analysis, a replication of the data to evaluate the null hypothesis and understand the confidence intervals, provide us with several important data sets to analyze the relationship between the treatment effect and views on whether homosexuality should be accepted in society. It is important to first note that this is a randomized experiment as the researchers recruited volunteers, randomly sorted them into a control and treatment group, and measured the before and after effects of the treatment. The ate_twitter provides the 1,000 replications and their stats, or the expected statistical significance of the treatment on individuals views on homosexuality, while the ATE variable summarizes these replications together to find the overall Average treatment effect (ATE), which is -0.124. Beyond the ATE, this data visualization also provides the upper and lower confidence intervals, which for lower is -1.38 and for the upper is 1.078. With a 95% confidence interval, you expect values to fall between these upper and lower boundaries 95% of the time. The lower Confidence interval provides the lower average treatment effect boundary, besides the 2.5% outliers and the lower Confidence interval provides the upper average treatment effect boundary, besides the 2.5% outlier. The alpha and confidence level are also intertwined, and because we used a 95% confidence level, our alpha would be 0.05.
 With an alpha of 0.05, and a p-value from the data of 0.338, we can see that the p-value is above the alpha. Because of both the fact that 0 falls between the upper and lower boundaries of the CI and that the p-value is above the alpha, we can fail to reject the null hypothesis based on this data. In failing to reject the null hypothesis, we are making a statement that there is no statistically significant effect of the treatment on the dependent variable. In failing to reject a null hypothesis, there is a possibility of a type II error which is when we fail to reject the null hypothesis but there actually exists an effect of the treatment on the dependent variable. Although a type II error would be detrimental, it is not regarded as bad a type I error. One way to attempt to mitigate a type II error is to increase the sample size, or amount of replications, as it would give a more precise P-value and CI.</p>
 <p>Visualization #2 results section: From this plot and its data, we can see that the treatment effect was not significantly significant on individuals’ views towards the statement “Homosexuality should be accepted by society.” From the codebook of the study, we can see that a more negative score is a more liberal view towards the question, more accepting of homosexuality, while a positive score is less accepting of homosexuality. In having an ATE of -0.124, as calculated through the data, there is a relationship in which there is small difference in views between the treatment, or exposure group, and the control group. Although this small relationship does exist, the confidence intervals and p-value below the alpha highlights that there is no observed effect between the treatment and individuals views on the acceptance of homosexuality in society. In failing to reject the null hypothesis, it means there is no sufficient evidence for an observed effect, or in other words that the effect of the treatment on whether individuals become more or less positive towards homosexuality in society was not statistically significant. To further understand the ATE and the lack of statistical significance, a regression can be done to look at the effect of the treatment on individuals’ views towards homosexuality in comparison to the effect of demographic information, such as age and gender.</p>
-Regression of Treatment Variable
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>repos <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>CRAN <span class='op'>=</span> <span class='st'>"https://cran.rstudio.com"</span><span class='op'>)</span><span class='op'>)</span></span>
@@ -1579,7 +1577,7 @@ Regression of Treatment Variable
 </div>
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/ns/t2by9gr5267c5l9zd3646q540000gn/T//RtmpKJQBxR/downloaded_packages</code></pre>
+    /var/folders/ns/t2by9gr5267c5l9zd3646q540000gn/T//RtmpAS3uA2/downloaded_packages</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fit_ate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>homosexuality_should_be_accepted_wave_5</span> <span class='op'>~</span> <span class='va'>treat</span> <span class='op'>+</span> <span class='va'>birth_year</span> <span class='op'>+</span> <span class='va'>family_income</span> <span class='op'>+</span> <span class='va'>education</span> <span class='op'>+</span> <span class='va'>gender</span> <span class='op'>+</span> <span class='va'>homosexuality_should_be_accepted_wave_1</span> <span class='op'>+</span> <span class='va'>northeast</span> <span class='op'>+</span> <span class='va'>north_central</span> <span class='op'>+</span> <span class='va'>south</span> <span class='op'>+</span> <span class='va'>west</span>, data <span class='op'>=</span> <span class='va'>twitter_data</span><span class='op'>)</span></span>
 <span>  </span>
@@ -1632,7 +1630,7 @@ F-statistic: 201.7 on 10 and 410 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <pre><code>
 % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-% Date and time: Wed, Dec 13, 2023 - 20:54:03
+% Date and time: Wed, Dec 13, 2023 - 20:55:27
 \begin{table}[!htbp] \centering 
   \caption{} 
   \label{} 
@@ -1689,7 +1687,7 @@ F Statistic &amp; 201.736$^{***}$ (df = 10; 410) \\
 \end{table} 
 
 % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-% Date and time: Wed, Dec 13, 2023 - 20:54:04
+% Date and time: Wed, Dec 13, 2023 - 20:55:27
 \begin{table}[!htbp] \centering 
   \caption{} 
   \label{} 

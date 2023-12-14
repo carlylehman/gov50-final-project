@@ -1517,7 +1517,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>##Exploring the Effect of Exposing Individuals to Diverse Political Views on Twitter on their Views Towards Accepting Homosexuality in Society</p>
+<h2 id="exploring-the-effect-of-exposing-individuals-to-diverse-political-views-on-twitter-on-their-views-towards-accepting-homosexuality-in-society">Exploring the Effect of Exposing Individuals to Diverse Political Views on Twitter on their Views Towards Accepting Homosexuality in Society</h2>
 <p>I am interested in exploring data related to the effect exposure to diverse political views has on individuals’ political polarization. Often times, an assumption is made that exposing individuals to diverse public opinions will decrease polarization. Instead of relying on this as a common assumption, I want to test whether individuals exposed to opposing political opinions will become more or less polarized. I specifically want to understand whether exposure to diverse political views changes individuals’ views on homosexuality. I find the survey questions on homosexuality an especially interesting aspect of this data set as it is a political issue often perceived to be influenced by religion and societal values, not social media. Understanding to what extent an exposure to diverse political views affects views on homosexuality, versus individuals other demographic factors, will help to understand whether views on homosexuality are driven by social media or outside factors. To do this, I am using a dataset from Bail et. al. 2018 which measured individuals political polarization before and after interacting with twitter bots of opposing political viewpoints. Bail et. al asks a variety of survey questions to measure political polarization, with about half dealing with economic issues and the other half dealing with social issues. The data set utilized 901 democrats and 751 republicans in its survey, collecting information about gender, geographic region, education, and twitter use as well. The specific survey question around homosexuality is posed as “Homosexuality should be accepted by society”, a broad question that leaves out legal opinions, such as asking about gay marriage, and instead just focuses on societal views. The many control variables collected will allow for a better understanding of the effect of the independent variable, instead of it being corrupted by outside variables. One downside to this dataset is that it is testing changes in views and polarization through twitter, a social media platform that is historically polarized. The effects of exposure to opposing views would surely be deferred if the exposure occurred in person, and not over social media.
 My hypothesis is that exposure to diverse political views on social media will have a small effect on individuals’ views towards homosexuality. Although I think there will be an effect, making individuals more accepting or more skeptical, I think the effect will be smaller than the effect of the treatment on economic or other, less religious based, social issues. I think that when faced with twitter bots espousing differing views to their own, users will revert to the inherent belief system that makes them unaccepting of LGBTQ individuals, and not feel especially moved to change their views by a stranger on the internet. Additionally, I think that outside demographic effects will have an effect on individuals towards homosexuality, as studies have shown that younger generations and women have more progressive views towards the LGTBQ+ population. This hypothesis is important for the future to understand the best way to address individuals and communities hostile to LGBTQ populations, whether it be through exposure to contrasting views or through addressing their root belief systems. It will also help to clarify the role social media plays in negative views towards homosexuality, or whether it is more of a forum for people to express their views instead of informing them.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1578,7 +1578,7 @@ With an alpha of 0.05, and a p-value from the data of 0.338, we can see that the
 </div>
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/ns/t2by9gr5267c5l9zd3646q540000gn/T//Rtmp1BDMmS/downloaded_packages</code></pre>
+    /var/folders/ns/t2by9gr5267c5l9zd3646q540000gn/T//Rtmp12WWhu/downloaded_packages</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>fit_ate</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>homosexuality_should_be_accepted_wave_5</span> <span class='op'>~</span> <span class='va'>treat</span> <span class='op'>+</span> <span class='va'>birth_year</span> <span class='op'>+</span> <span class='va'>family_income</span> <span class='op'>+</span> <span class='va'>education</span> <span class='op'>+</span> <span class='va'>gender</span> <span class='op'>+</span> <span class='va'>homosexuality_should_be_accepted_wave_1</span> <span class='op'>+</span> <span class='va'>northeast</span> <span class='op'>+</span> <span class='va'>north_central</span> <span class='op'>+</span> <span class='va'>south</span> <span class='op'>+</span> <span class='va'>west</span>, data <span class='op'>=</span> <span class='va'>twitter_data</span><span class='op'>)</span></span>
 <span>  </span>
@@ -1631,7 +1631,7 @@ F-statistic: 201.7 on 10 and 410 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <pre><code>
 % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-% Date and time: Wed, Dec 13, 2023 - 21:04:29
+% Date and time: Wed, Dec 13, 2023 - 21:05:18
 \begin{table}[!htbp] \centering 
   \caption{} 
   \label{} 
@@ -1688,7 +1688,7 @@ F Statistic &amp; 201.736$^{***}$ (df = 10; 410) \\
 \end{table} 
 
 % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-% Date and time: Wed, Dec 13, 2023 - 21:04:29
+% Date and time: Wed, Dec 13, 2023 - 21:05:18
 \begin{table}[!htbp] \centering 
   \caption{} 
   \label{} 
